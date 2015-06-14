@@ -63,8 +63,20 @@ exports.flights = function(req, res) {
 		res.json(flight_data[uniqueNumber].getInformation());
 	}
 
-
-
-	//res.json(flight_data[req.params.number]);
-
 };
+
+exports.arrived = function(req, res) {
+
+	var uniqueNumber = req.params.number;
+
+	if (typeof flight_data[uniqueNumber] === 'undefined') {
+
+		res.status(404).json({
+			status: "error"
+		});
+	} else {
+		flight_data[uniqueNumber].triggerArrive();
+		res.json(flight_data[uniqueNumber].getInformation());
+	}
+
+}
